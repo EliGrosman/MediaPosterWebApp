@@ -59,7 +59,8 @@ class UsersPublic(SQLModel):
 # Shared properties
 class ItemBase(SQLModel):
     title: str = Field(min_length=1, max_length=255)
-    description: str | None = Field(default=None, max_length=255)
+    caption: str | None = Field(default=None)
+    hashtags: str | None = Field(default=None)
 
 
 # Properties to receive on item creation

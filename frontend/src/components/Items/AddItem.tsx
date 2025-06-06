@@ -41,7 +41,8 @@ const AddItem = () => {
     criteriaMode: "all",
     defaultValues: {
       title: "",
-      description: "",
+      caption: "",
+      hashtags: ""
     },
   })
 
@@ -49,7 +50,7 @@ const AddItem = () => {
     mutationFn: (data: ItemCreate) =>
       ItemsService.createItem({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast("Item created successfully.")
+      showSuccessToast("Post created successfully.")
       reset()
       setIsOpen(false)
     },
@@ -75,16 +76,16 @@ const AddItem = () => {
       <DialogTrigger asChild>
         <Button value="add-item" my={4}>
           <FaPlus fontSize="16px" />
-          Add Item
+          Start Post
         </Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>Add Item</DialogTitle>
+            <DialogTitle>Create Post</DialogTitle>
           </DialogHeader>
           <DialogBody>
-            <Text mb={4}>Fill in the details to add a new item.</Text>
+            <Text mb={4}>Fill in the details to start a new post. All can be changed later.</Text>
             <VStack gap={4}>
               <Field
                 required
@@ -103,14 +104,27 @@ const AddItem = () => {
               </Field>
 
               <Field
-                invalid={!!errors.description}
-                errorText={errors.description?.message}
-                label="Description"
+                invalid={!!errors.caption}
+                errorText={errors.caption?.message}
+                label="Caption"
               >
                 <Input
-                  id="description"
-                  {...register("description")}
-                  placeholder="Description"
+                  id="caption"
+                  {...register("caption")}
+                  placeholder="Caption for your post"
+                  type="text"
+                />
+              </Field>
+
+              <Field
+                invalid={!!errors.hashtags}
+                errorText={errors.hashtags?.message}
+                label="Hashtags"
+              >
+                <Input
+                  id="hashtags"
+                  {...register("hashtags")}
+                  placeholder="Hashtags separated by commas: 'single mom, funny, dog' "
                   type="text"
                 />
               </Field>

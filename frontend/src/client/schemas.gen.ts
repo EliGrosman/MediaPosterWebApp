@@ -77,17 +77,27 @@ export const ItemCreateSchema = {
       minLength: 1,
       title: "Title",
     },
-    description: {
+    caption: {
       anyOf: [
         {
-          type: "string",
-          maxLength: 255,
+          type: "string"
         },
         {
           type: "null",
         },
       ],
-      title: "Description",
+      title: "Caption",
+    },
+    hashtags: {
+      anyOf: [
+        {
+          type: "string"
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Hashtags",
     },
   },
   type: "object",
@@ -103,17 +113,27 @@ export const ItemPublicSchema = {
       minLength: 1,
       title: "Title",
     },
-    description: {
+    caption: {
       anyOf: [
         {
-          type: "string",
-          maxLength: 255,
+          type: "string"
         },
         {
           type: "null",
         },
       ],
-      title: "Description",
+      title: "Caption",
+    },
+    hashtags: {
+      anyOf: [
+        {
+          type: "string"
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Hashtags",
     },
     id: {
       type: "string",
@@ -146,17 +166,27 @@ export const ItemUpdateSchema = {
       ],
       title: "Title",
     },
-    description: {
+    caption: {
       anyOf: [
         {
-          type: "string",
-          maxLength: 255,
+          type: "string"
         },
         {
           type: "null",
         },
       ],
-      title: "Description",
+      title: "Caption",
+    },
+    hashtags: {
+      anyOf: [
+        {
+          type: "string"
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Hashtags",
     },
   },
   type: "object",

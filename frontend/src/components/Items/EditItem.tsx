@@ -32,7 +32,8 @@ interface EditItemProps {
 
 interface ItemUpdateForm {
   title: string
-  description?: string
+  caption?: string
+  hashtags?: string
 }
 
 const EditItem = ({ item }: EditItemProps) => {
@@ -49,7 +50,8 @@ const EditItem = ({ item }: EditItemProps) => {
     criteriaMode: "all",
     defaultValues: {
       ...item,
-      description: item.description ?? undefined,
+      caption: item.caption ?? undefined,
+      hashtags: item.hashtags ?? undefined,
     },
   })
 
@@ -111,14 +113,27 @@ const EditItem = ({ item }: EditItemProps) => {
               </Field>
 
               <Field
-                invalid={!!errors.description}
-                errorText={errors.description?.message}
-                label="Description"
+                invalid={!!errors.caption}
+                errorText={errors.caption?.message}
+                label="Caption"
               >
                 <Input
-                  id="description"
-                  {...register("description")}
-                  placeholder="Description"
+                  id="caption"
+                  {...register("caption")}
+                  placeholder="Caption"
+                  type="text"
+                />
+              </Field>
+
+              <Field
+                invalid={!!errors.hashtags}
+                errorText={errors.hashtags?.message}
+                label="Hashtags"
+              >
+                <Input
+                  id="hashtags"
+                  {...register("hashtags")}
+                  placeholder="Hashtags"
                   type="text"
                 />
               </Field>

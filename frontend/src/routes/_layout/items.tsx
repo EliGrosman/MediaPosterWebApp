@@ -70,9 +70,9 @@ function ItemsTable() {
             <FiSearch />
           </EmptyState.Indicator>
           <VStack textAlign="center">
-            <EmptyState.Title>You don't have any items yet</EmptyState.Title>
+            <EmptyState.Title>You don't have any pending posts</EmptyState.Title>
             <EmptyState.Description>
-              Add a new item to get started
+              Upload a new video to get started
             </EmptyState.Description>
           </VStack>
         </EmptyState.Content>
@@ -85,9 +85,9 @@ function ItemsTable() {
       <Table.Root size={{ base: "sm", md: "md" }}>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader w="sm">ID</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Title</Table.ColumnHeader>
-            <Table.ColumnHeader w="sm">Description</Table.ColumnHeader>
+            <Table.ColumnHeader w="sm">Caption</Table.ColumnHeader>
+            <Table.ColumnHeader w="sm">Hashtags</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Actions</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
@@ -95,17 +95,21 @@ function ItemsTable() {
           {items?.map((item) => (
             <Table.Row key={item.id} opacity={isPlaceholderData ? 0.5 : 1}>
               <Table.Cell truncate maxW="sm">
-                {item.id}
-              </Table.Cell>
-              <Table.Cell truncate maxW="sm">
                 {item.title}
               </Table.Cell>
               <Table.Cell
-                color={!item.description ? "gray" : "inherit"}
+                color={!item.caption ? "gray" : "inherit"}
                 truncate
                 maxW="30%"
               >
-                {item.description || "N/A"}
+                {item.caption || "N/A"}
+              </Table.Cell>
+              <Table.Cell
+                color={!item.hashtags ? "gray" : "inherit"}
+                truncate
+                maxW="30%"
+              >
+                {item.hashtags || "N/A"}
               </Table.Cell>
               <Table.Cell>
                 <ItemActionsMenu item={item} />
@@ -135,7 +139,7 @@ function Items() {
   return (
     <Container maxW="full">
       <Heading size="lg" pt={12}>
-        Items Management
+        Upload Management
       </Heading>
       <AddItem />
       <ItemsTable />
