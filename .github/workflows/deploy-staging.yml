@@ -28,14 +28,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: docker compose -f docker-compose.yml --project-name ${{ secrets.STACK_NAME_STAGING }} build
+      - run: docker compose -f docker-compose.yml --project-name ${{ secrets.STACK_NAME_STAGING }} --verbose build
       - run: docker compose -f docker-compose.yml --project-name ${{ secrets.STACK_NAME_STAGING }} up -d
-      - name: Show prestart logs on failure
+      - name: Debug prestart container
         if: failure()
         run: |
-          echo "=== Docker Compose Logs ==="
-          docker-compose logs prestart
-          echo "=== All Container Status ==="
-          docker-compose ps
-          echo "=== Docker System Info ==="
-          docker system df
+          echo "=== Prestart Container Logs ==="
+          docker-compose logs --tail=50 prestart
+          echo "=== Database Container Logs ==="
+          docker-compose logs --tail=20 db
+          echo "=== Environment Variables ==="
+          docker-compose exec prestart env | grep -E "(POSTGRES|DOMAIN|ENVIRONMENT)"
