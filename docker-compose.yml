@@ -43,16 +43,22 @@ services:
       - traefik.http.services.${STACK_NAME?Variable not set}-adminer.loadbalancer.server.port=8080
 
   prestart:
-    image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
     build:
       context: ./backend
     networks:
-      - traefik-public
       - default
     depends_on:
       db:
         condition: service_healthy
-    command: bash scripts/prestart.sh
+    restart: "no"
+    command: |
+      bash -c "
+        echo '=== Container started ==='
+        ls -la scripts/ || echo 'scripts directory not found'
+        ls -la scripts/prestart.sh || echo 'prestart.sh not found'
+        test -x scripts/prestart.sh || echo 'prestart.sh not executable'
+        bash scripts/prestart.sh
+      "
     env_file:
       - .env
     environment:
